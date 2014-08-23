@@ -39,6 +39,13 @@
 
     var BAR_WIDTH_CONSTANT=5;
     var AUTO_FUNCTION_RUN_TIMEOUT_IN_SECONDS=1;
+	
+	//Graph Constants
+    var initialGraphSpacing=40;
+    var barWidthMultiplier=1.8;
+    var barGraphHeightAdjustParameter=45;
+    var individualBarLinePositionMultiplier=40;
+	var individualBarLineHeight=5;
 
 
     var minMaxPreference={
@@ -58,6 +65,7 @@ var interactiveGraphBackgroundRGBValues={
 }
 var minmaxErrorAlertOnNoElement="Please Provide an input array and click this button after sorting is complete";
 var inputArrayNotFoundErrorAlertMessage="Please provide an array input to sort";
+var numberOfElementsError="Please specify number of Elements in the inclusive range 1 to 100";
 
 var graphUpdateColorValue="red";
 var graphNormalColorValue="white";

@@ -135,10 +135,10 @@ function createGraph(data, currentIndexReadyToSwap, swapIndicator) {
 
         numberOfTotalInputElements=data.length;                
 
-                //Border should lie just right to the largest possible bar on the given graph
-                can.width = maxnumber*1.0;
+               //Border should lie just right to the largest possible bar on the given graph
+                can.width = maxnumber*(barWidthMultiplier+0.2);
                 //Depends on the number of input elements given to the algorithm
-                can.height = numberOfTotalInputElements*45;
+                can.height = numberOfTotalInputElements*barGraphHeightAdjustParameter;
 
 
                 /* Set canvas size */
@@ -157,7 +157,7 @@ function createGraph(data, currentIndexReadyToSwap, swapIndicator) {
                         if (swapIndicator == true) {
                             ctx.beginPath();
                             ctx.fillStyle = graphUpdateColorValue;
-                            ctx.rect(0, 40 + i * 40, data[i] * 0.8, BAR_WIDTH_CONSTANT);
+                            ctx.rect(0, initialGraphSpacing + i * individualBarLinePositionMultiplier, data[i] * barWidthMultiplier, BAR_WIDTH_CONSTANT);
                             
                             ctx.fill();
                             tableData += "<tr><td style='background-color:red'>" + i + "</td><td style='background-color:red'>" + data[i] + "</td></tr>";
@@ -168,7 +168,7 @@ function createGraph(data, currentIndexReadyToSwap, swapIndicator) {
                     tableData += "<tr><td>" + i + "</td><td>" + data[i] + "</td></tr>";
                     ctx.beginPath();
                     ctx.fillStyle = graphNormalColorValue;
-                    ctx.rect(0, 40 + i * 40, data[i] * 0.8, 5);
+                    ctx.rect(0, initialGraphSpacing + i * individualBarLinePositionMultiplier, data[i] * barWidthMultiplier, individualBarLineHeight);
                     ctx.fill();
                 }
                 tableData += "</table>";
@@ -181,9 +181,11 @@ function createGraph(data, currentIndexReadyToSwap, swapIndicator) {
 
         function getRandomArray() {
 
-            if (numberOfElementsTextHTMLElement.value > 0) {
+		
+        if (numberOfElementsTextHTMLElement.value > 0 && numberOfElementsTextHTMLElement.value <= 100 ) 
+         {
                 numelements = parseInt(numberOfElementsTextHTMLElement.value)||numelements;
-            }
+            
 
             //Maximum and Minimum Value you can give
             if (minNumberHTMLTextElement.value >= 0) {
@@ -208,6 +210,11 @@ function createGraph(data, currentIndexReadyToSwap, swapIndicator) {
                 inputarrayrequest.push(randomnumber);
             }
             return inputarrayrequest;
+			}
+			else{
+            alert(numberOfElementsError);
+            return [];
+        }
         }
 
         //Automatically generate successive output when user pressed - Play button
@@ -233,6 +240,10 @@ function createGraph(data, currentIndexReadyToSwap, swapIndicator) {
             //Get fresh array only for the first time since processing begun
             if (r == 0) {
                 inputarrayrequest = getRandomArray();
+				if(!inputarrayrequest.length){
+				clearInterval(functionInterval);
+				return;
+				}
             } 
             getSortedArray(r++);
 

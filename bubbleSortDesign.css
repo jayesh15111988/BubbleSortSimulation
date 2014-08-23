@@ -53,8 +53,8 @@ input[type='text']{
 
         #graph {
             left: 40px;
-            top: 100px;
-            position: relative;
+            top: 350px;
+            position: absolute;
         }
 
         #swappingprocess {
